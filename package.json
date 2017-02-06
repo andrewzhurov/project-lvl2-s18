@@ -1,0 +1,44 @@
+{
+  "name": "broose_gendiff",
+  "version": "1.2.0",
+  "description": "A one great differ!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "babel-node": "babel-node",
+    "flow": "flow",
+    "eslint": "eslint"
+  },
+  "bin": {
+    "gendiff": "./bin/gendiff.js"
+  },
+  "dependencies": {
+    "commander": "^2.9.0",
+    "readline-sync": "*"
+  },
+  "devDependencies": {
+    "babel-cli": "*",
+    "babel-core": "*",
+    "babel-preset-env": "*",
+    "babel-preset-stage-0": "*",
+    "babel-plugin-syntax-flow": "*",
+    "babel-plugin-transform-flow-strip-types": "*",
+    "babel-eslint": "*",
+    "eslint": "*",
+    "eslint-config-airbnb-base": "*",
+    "eslint-plugin-flowtype": "*",
+    "eslint-plugin-import": "*",
+    "flow-bin": "*",
+    "flow-typed": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/broose/project-lvl2-s18.git"
+  },
+  "author": "Andrew Zhurov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/broose/project-lvl2-s18/issues"
+  },
+  "homepage": "https://github.com/broose/project-lvl2-s18/#readme"
+}
