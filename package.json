@@ -4,10 +4,12 @@
   "description": "A one great differ!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "babel-node": "babel-node",
     "flow": "flow",
-    "eslint": "eslint"
+    "eslint": "eslint",
+    "build": "babel src --out-dir dist",
+    "prepublish": "npm run build"
   },
   "bin": {
     "gendiff": "./bin/gendiff.js"
@@ -19,17 +21,18 @@
   "devDependencies": {
     "babel-cli": "*",
     "babel-core": "*",
-    "babel-preset-env": "*",
-    "babel-preset-stage-0": "*",
+    "babel-eslint": "*",
     "babel-plugin-syntax-flow": "*",
     "babel-plugin-transform-flow-strip-types": "*",
-    "babel-eslint": "*",
+    "babel-preset-env": "*",
+    "babel-preset-stage-0": "*",
     "eslint": "*",
     "eslint-config-airbnb-base": "*",
     "eslint-plugin-flowtype": "*",
     "eslint-plugin-import": "*",
     "flow-bin": "*",
-    "flow-typed": "*"
+    "flow-typed": "*",
+    "jest": "^18.1.0"
   },
   "repository": {
     "type": "git",

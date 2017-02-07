@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // @flow
-const program = require('commander');
+import program from 'commander';
+import core from '../index.js';
 
 let firstConfig;
 let secondConfig;
@@ -19,3 +20,4 @@ console.log('You wonder of diff between:');
 console.log(`first_config - ${firstConfig}`);
 console.log(`second_config - ${secondConfig}`);
 console.log(`Output in '${program.format}' format`);
+console.log(`Out:\n${core(firstConfig, secondConfig, program.format)}`);
