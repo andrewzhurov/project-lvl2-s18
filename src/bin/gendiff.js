@@ -3,9 +3,6 @@
 import program from 'commander';
 import core from '../index';
 
-let firstConfig;
-let secondConfig;
-
 program
   .version('0.0.1')
   .arguments('<first_config> <second_config>')
