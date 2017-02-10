@@ -16,7 +16,9 @@
   },
   "dependencies": {
     "commander": "^2.9.0",
-    "readline-sync": "*"
+    "readline-sync": "*",
+    "lodash": "*",
+    "multiarity": "*"
   },
   "devDependencies": {
     "babel-cli": "*",
@@ -32,7 +34,7 @@
     "eslint-plugin-import": "*",
     "flow-bin": "*",
     "flow-typed": "*",
-    "jest": "^18.1.0"
+    "jest": "*"
   },
   "repository": {
     "type": "git",
