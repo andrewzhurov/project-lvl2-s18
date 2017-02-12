@@ -9,4 +9,16 @@ A good one structure differ
 
 
 #Installation
-// TODO
+`$ npm install -g broose_gendiff`
+
+#Usage
+`$ gendiff -h` for help
+`$ gendiff before.json after.json` to see the difference
+##As library
+`$ npm install -s broose_gendiff`
+###ES6
+`import gendiff from 'gendiff'`
+`gendiff(path1, path2)`
+###ES5
+`const gendiff = require('gendiff').default;`
+`gendiff(path1, path2);`
