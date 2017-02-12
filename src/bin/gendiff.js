@@ -12,4 +12,3 @@ program
   })
   .option('-f, --format [type]', 'Output format', 'json')
   .parse(process.argv);
-

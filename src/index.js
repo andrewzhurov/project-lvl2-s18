@@ -147,17 +147,17 @@ export default (first, second) => {
 //          ftype === 'simple' && f === s ? 'unchanged' :
 //          'changed';
 // };
-// 
+//
 // const genChildren = (f, s) => {
 //   const ftype = getType(f);
 //   const stype = getType(s);
 //   if (ftype !== stype) {
 //     throw { reason: 'cant generate childs from different types', ftype, stype };
 //   }
-// 
+//
 //   if (ftype === 'map') {
 //     const keys = _.union(Object.keys(f), Object.keys(s));
-// 
+//
 //     const chlds = keys.map((key) => {
 //       console.log(`key now: ${key}`)
 //       console.log(`genned:${gen(f[key], s[key])}`);
@@ -167,11 +167,11 @@ export default (first, second) => {
 //     return chlds;
 //   }
 // };
-// 
+//
 // const gen = (f, s) => {
 //   const type = getType(f);
 //   const status = getStatus(f, s);
-// 
+//
 //   return status === 'changed' ? { status, oldValue: gen(f, f), newValue: gen(s, s) } :
 //          status === 'added' ? { status, newValue: gen(s, s) } :
 //          status === 'removed' ? { status, oldValue: gen(f, f) } :
@@ -180,13 +180,13 @@ export default (first, second) => {
 //                                   'status: unchanged, type: one hell of a dumb type' :
 //          `wow, the status of node is really weird!\n it's: ${status}`;
 // };
-// 
+//
 // export default (first, second) => {
 //   const fobj = JSON.parse(fs.readFileSync(first, 'utf8'));
 //   const sobj = JSON.parse(fs.readFileSync(second, 'utf8'));
-// 
+//
 //   const astDiff = gen(fobj, sobj);
-// 
+//
 //   return astDiff;
 // };
 
@@ -257,8 +257,8 @@ export default (first, second) => {
 // const type = it => typeof it !== 'object' ? 'value' :
 //                      Array.isArray(it) ? 'array' :
 //                      'map';
-// 
-// 
+//
+//
 // const status = (f, s) => {
 //   const ftype = type(f);
 //   const stype = type(s);
@@ -267,7 +267,7 @@ export default (first, second) => {
 //          f === undefined ? 'added' :
 //          'modified';
 // };
-// 
+//
 // export const gen = (f, s) => {
 //   const stat = status(f, s);
 //   const ftype = type(f);
@@ -277,56 +277,56 @@ export default (first, second) => {
 //          stat === 'removed' ? { stat, type: ftype, val: gen(f, f) } :
 //          stat === 'same' // < ended here
 // };
-// 
-// 
-// 
-// 
-// 
-// 
+//
+//
+//
+//
+//
+//
 // // ----------------------------- previous try below
 // // NO ENTER WITH EYES OPENED
 // const isDifferentType = (f, s) =>
 //       (typeof f !== typeof s && typeof f !== undefined && typeof s !== undefined) ||
 //       (Array.isArray(f) && !Array.isArray(s)) ||
 //       (!Array.isArray(f) && Array.isArray(s));
-// 
+//
 // const diff = (f, s) =>
 //     f === s ? { status: 'same', value: f } :
 //     s === undefined ? { status: 'removed', value: f } :
 //     f === undefined ? { status: 'added', value: s } :
 //     { status: 'modified', from: gen(f, f), to: gen(s, s)};
-// 
-// 
+//
+//
 // export const genold = (f, s) => {
 //   if (isDifferentType(f, s)) { return diff(f, s); }
-// 
+//
 //   // TODO place array branch here
 //   if (typeof f === 'object') {
 //     const ks = _.union(Object.keys(f), Object.keys(s));
-// 
+//
 //     const entries = ks.map((key) => {
 //       const state = gen(f[key], s[key]);
 //       return { key, state };
 //     });
-// 
+//
 //     return { type: 'map', entries };
 //   }
-// 
+//
 //   return diff(f, s); };
-// 
-// 
+//
+//
 //   // TODO that's a dumb realisation only to pass step2
 // export const diffToText = (d) => {
 //   const elmts = d.map((el) => null)
-//         
+//
 // };
 // // -----------------------------
-// 
+//
 // export default (first, second) => {
 //   const fobj = JSON.parse(fs.readFileSync(first, 'utf8'));
 //   const sobj = JSON.parse(fs.readFileSync(second, 'utf8'));
-// 
+//
 //   const astDiff = gen(fobj, sobj);
-// 
+//
 //   return astDiff;
 // };
