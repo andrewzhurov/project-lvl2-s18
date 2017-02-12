@@ -2,7 +2,7 @@
 import gendiff, { gen, diffToText } from '../src/index';
 test('gendiff test', () => {
   const out = '{\n    host: hexlet.io\n  + timeout: 20\n  - timeout: 50\n  - proxy: 123.234.53.22\n  + verbose: true\n}';
-    expect(gendiff('before.json', 'after.json')).toBe(out);
+    expect(gendiff('__tests__/data/before.json', '__tests__/data/after.json')).toBe(out);
 });
 
 
