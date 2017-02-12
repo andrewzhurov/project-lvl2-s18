@@ -70,8 +70,10 @@ const diffToText = (t) => {
         return `  + ${pairToText(key, newValue)}`;
       case 'unchanged':
         return `    ${pairToText(key, oldValue)}`;
-      default:
+      case 'changed':
         return `${diffToText({ status: 'added', key, newValue })}${diffToText({ status: 'removed', key, oldValue })}`;
+      default:
+        return 'again that neverappearing type here!';
     }
   }
 };
