@@ -12,6 +12,6 @@ export default (path) => {
       return parseYAML(path);
     default:
     // TODO throw an exception here
-    return 'blablabl';
+      return 'blablabl';
   }
 };
