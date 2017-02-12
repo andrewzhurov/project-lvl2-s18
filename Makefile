@@ -13,3 +13,9 @@ lint:
 
 test:
 	npm test
+build:
+	rm -rf dist
+	npm run build
+
+auto_publish: install build publish
+
