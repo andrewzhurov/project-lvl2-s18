@@ -56,14 +56,14 @@ const gen = (f, s) => {
 
 const pairToText = (key, val) => `${key}: ${val}\n`;
 const diffToText = (t) => {
-  const newValue = _.get(t, 'newValue');
-  const oldValue = _.get(t, 'oldValue');
-  const key = _.get(t, 'key');
-  if (_.has(t, 'children')) {
-    return `{\n${_.get(t, 'children').map(node => diffToText(node)).reduce((acc, el) => `${acc}${el}`)}}`;
-    // how to deal with "no-else-return" ?
+  const newValue = t.newValue;
+  const oldValue = t.oldValue;
+  const key = t.key;
+  if (t.children && t.children.length > 0) {
+    return `{\n${t.children.map(node => diffToText(node)).reduce((acc, el) => `${acc}${el}`)}}`;
+    // how to deal with "no-else-return" ? hmm
   } else {
-    switch (_.get(t, 'status')) {
+    switch (t.status) {
       case 'removed':
         return `  - ${pairToText(key, oldValue)}`;
       case 'added' :
