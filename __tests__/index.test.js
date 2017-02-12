@@ -1,37 +1,87 @@
+/* eslint-disable */
 import gendiff, { gen, diffToText } from '../src/index';
-
-test('gen flat map test, no arrays', () => {
-  const f = { one: 'one', two: 'two', kangaroo: 'kangaroo' };
-  const s = { one: 'one', three: 'three', kangaroo: 'roorooroo!' };
-  // const diff = { one: { same: 'one' },
-  //                two: { removed: 'two' },
-  //                three: { added: 'three' },
-  //                kangaroo: { modified: { from: 'kangaroo', to: 'roorooroo!' } },
-  //              };
-  const diff = { status: 'same',
-                 type: 'map',
-                 entries: [{ status: 'same', key: 'one', val: { type: 'simple', raw: 'one' } },
-                           { status: 'removed', key: 'two', val: { type: 'simple', raw: 'two' } },
-                           { status: 'modified', from: { key: 'kangaroo', val: { type: 'simple', raw: 'kangaroo' } }, to: { key: 'kangaroo', val: { type: 'simple', raw: 'roorooroo!' } } },
-                           { status: 'added', key: 'three', val: { type: 'simple', raw: 'three' } }] };
-
-  expect(gen(f, s)).toEqual(diff);
+test('gendiff test', () => {
+  const out = '{\n    host: hexlet.io\n  + timeout: 20\n  - timeout: 50\n  - proxy: 123.234.53.22\n  + verbose: true\n}';
+    expect(gendiff('before.json', 'after.json')).toBe(out);
 });
 
-test('gen typemodification test', () => {
-  const f = [];
-  const s = {};
-  const diff = { status: modified, from: { status: 'same', type: 'array', entries: [] }, to: { status: 'same', type: 'map', entries: [] } };
 
-  expect(gen(f, s)).toEqual(diff);
-});
 
-test('diffToText simple test', () => {
-  const diff = { num: { modified: { from: 1, to: 2 } } };
-  const text = '{\n  + num: 2\n  - num: 1\n}';
 
-  expect(diffToText(diff)).toBe(text);
-});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// test('gen flat map test, no arrays', () => {
+//   const f = { one: 'one', two: 'two', kangaroo: 'kangaroo' };
+//   const s = { one: 'one', three: 'three', kangaroo: 'roorooroo!' };
+//   // const diff = { one: { same: 'one' },
+//   //                two: { removed: 'two' },
+//   //                three: { added: 'three' },
+//   //                kangaroo: { modified: { from: 'kangaroo', to: 'roorooroo!' } },
+//   //              };
+//   const diff = { status: 'same',
+//                  type: 'map',
+//                  entries: [{ status: 'same', key: 'one', val: { type: 'simple', raw: 'one' } },
+//                            { status: 'removed', key: 'two', val: { type: 'simple', raw: 'two' } },
+//                            { status: 'modified', from: { key: 'kangaroo', val: { type: 'simple', raw: 'kangaroo' } }, to: { key: 'kangaroo', val: { type: 'simple', raw: 'roorooroo!' } } },
+//                            { status: 'added', key: 'three', val: { type: 'simple', raw: 'three' } }] };
+// 
+//   expect(gen(f, s)).toEqual(diff);
+// });
+// 
+// test('gen typemodification test', () => {
+//   const f = [];
+//   const s = {};
+//   const diff = { status: modified, from: { status: 'same', type: 'array', entries: [] }, to: { status: 'same', type: 'map', entries: [] } };
+// 
+//   expect(gen(f, s)).toEqual(diff);
+// });
+// 
+// test('diffToText simple test', () => {
+//   const diff = { num: { modified: { from: 1, to: 2 } } };
+//   const text = '{\n  + num: 2\n  - num: 1\n}';
+// 
+//   expect(diffToText(diff)).toBe(text);
+// });
 
 // test('diffToText test complex', () => {
 //   const diff = { pairs: [{m: {same: 'John'},
