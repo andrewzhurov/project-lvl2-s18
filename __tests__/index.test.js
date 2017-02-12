@@ -10,6 +10,11 @@ test('gendiff test from yaml', () => {
   expect(gendiff('__tests__/data/before.yaml', '__tests__/data/after.yml')).toBe(out);
 });
 
+test('gendiff test from ini', () => {
+  const out = '{\n    host: hexlet.io\n  + timeout: 20\n  - timeout: 50\n  - proxy: 123.234.53.22\n  + verbose: true\n}';
+  expect(gendiff('__tests__/data/before.ini', '__tests__/data/after.ini')).toBe(out);
+});
+
 
 
 

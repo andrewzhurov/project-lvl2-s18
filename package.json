@@ -18,7 +18,8 @@
     "commander": "^2.9.0",
     "readline-sync": "*",
     "lodash": "*",
-    "read-yaml": "*"
+    "read-yaml": "*",
+    "ini": "*"
   },
   "devDependencies": {
     "babel-cli": "*",
