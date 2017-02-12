@@ -1,8 +1,13 @@
 /* eslint-disable */
 import gendiff, { gen, diffToText } from '../src/index';
-test('gendiff test', () => {
+test('gendiff test json', () => {
   const out = '{\n    host: hexlet.io\n  + timeout: 20\n  - timeout: 50\n  - proxy: 123.234.53.22\n  + verbose: true\n}';
     expect(gendiff('__tests__/data/before.json', '__tests__/data/after.json')).toBe(out);
+});
+
+test('gendiff test from yaml', () => {
+  const out = '{\n    host: hexlet.io\n  + timeout: 20\n  - timeout: 50\n  - proxy: 123.234.53.22\n  + verbose: true\n}';
+  expect(gendiff('__tests__/data/before.yaml', '__tests__/data/after.yml')).toBe(out);
 });
 
 

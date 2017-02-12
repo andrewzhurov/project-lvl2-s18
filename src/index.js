@@ -1,5 +1,5 @@
-import fs from 'fs';
 import _ from 'lodash';
+import parse from './parsers/index';
 
 const getType = it => typeof it === 'object' ? 'complex' : 'simple';
 const getStatus = (f, s) => {
@@ -69,8 +69,8 @@ const diffToText = (t) => {
 };
 
 export default (first, second) => {
-  const fobj = JSON.parse(fs.readFileSync(first, 'utf8'));
-  const sobj = JSON.parse(fs.readFileSync(second, 'utf8'));
+  const fobj = parse(first);
+  const sobj = parse(second);
 
   const astDiff = gen(fobj, sobj);
   const strDiff = diffToText(astDiff);
