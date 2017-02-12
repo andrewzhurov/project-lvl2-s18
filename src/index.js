@@ -2,14 +2,11 @@
           no-multiple-empty-lines: "off",
           max-len: "off",
           no-use-before-define: "off",
-          arrow-body-style: "off"
+          arrow-body-style: "off",
+          no-else-return: "off"
 */
 // it's a lot of turning off
 // "max-len" and "multiple-empty-lines" just for now, I'll strip it
-
-// "neste-ternary" is a style I use... so, do you think it's good: locanic, easy-to-read, clearly obvious how branches structured...
-// ... or bleeding eyes? Tho if there is no another way of doing same => only through nested ifs, then I think this style is bloody good
-// (lisp-way! hehe! kind of structural homoiconicity! whoho!)
 
 // "no-use-before-define" is a problem to solve, tho I don't want to do it right now, I want it just to work first
 // "arrow-body-style" I commented in place
@@ -36,7 +33,6 @@ const genChildren = (f, s) => {
   const chlds = keys.map((key) => {
     return { ...gen(f[key], s[key]), key };
   });
-  console.log(`chlds generated: ${chlds}`);
   return chlds;
 };
 
@@ -45,16 +41,17 @@ const gen = (f, s) => {
   const stype = getType(s);
   const status = getStatus(f, s);
 
-  // hold on there!
-  return status === 'changed' ? { status, oldValue: f, newValue: s } :
-         status === 'added' && stype === 'simple' ? { status, newValue: s } :
-         status === 'added' && stype === 'complex' ? { status, children: genChildren(s, s) } :
-         status === 'removed' && stype === 'simple' ? { status, oldValue: f } :
-         status === 'removed' && stype === 'complex' ? { status, children: genChildren(f, f) } :
-         status === 'unchanged' ? ftype === 'simple' ? { status, oldValue: f } :
-                                  ftype === 'complex' ? { status, children: genChildren(f, s) } :
-                                  'status: unchanged, type: one hell of a dumb type' :
-         `wow, the status of node is really weird!\n its: ${status}`;
+  switch (status) {
+    case 'changed':
+      return { status, oldValue: f, newValue: s };
+    case 'added':
+      return stype === 'simple' ? { status, newValue: s } : { status, children: genChildren(s, s) };
+    case 'removed':
+      return stype === 'simple' ? { status, oldValue: f } : { status, children: genChildren(f, f) };
+    case 'unchanged':
+      return ftype === 'simple' ? { status, oldValue: f } : { status, children: genChildren(f, s) };
+    default: return 'neverappearing type appeared';
+  }
 };
 
 const pairToText = (key, val) => `${key}: ${val}\n`;
@@ -62,11 +59,21 @@ const diffToText = (t) => {
   const newValue = _.get(t, 'newValue');
   const oldValue = _.get(t, 'oldValue');
   const key = _.get(t, 'key');
-  return _.has(t, 'children') ? `{\n${_.get(t, 'children').map(node => diffToText(node)).reduce((acc, el) => `${acc}${el}`)}}` :
-                                _.get(t, 'status') === 'removed' ? `  - ${pairToText(key, oldValue)}` :
-                                _.get(t, 'status') === 'added' ? `  + ${pairToText(key, newValue)}` :
-                                _.get(t, 'status') === 'unchanged' ? `    ${pairToText(key, oldValue)}` :
-                                `${diffToText({ status: 'added', key, newValue })}${diffToText({ status: 'removed', key, oldValue })}`;
+  if (_.has(t, 'children')) {
+    return `{\n${_.get(t, 'children').map(node => diffToText(node)).reduce((acc, el) => `${acc}${el}`)}}`;
+    // how to deal with "no-else-return" ?
+  } else {
+    switch (_.get(t, 'status')) {
+      case 'removed':
+        return `  - ${pairToText(key, oldValue)}`;
+      case 'added' :
+        return `  + ${pairToText(key, newValue)}`;
+      case 'unchanged':
+        return `    ${pairToText(key, oldValue)}`;
+      default:
+        return `${diffToText({ status: 'added', key, newValue })}${diffToText({ status: 'removed', key, oldValue })}`;
+    }
+  }
 };
 
 export default (first, second) => {
