@@ -1,30 +1,22 @@
 import _ from 'lodash';
-import parse from './parsers/index';
+import parse from './parsers';
 
-const getType = it => typeof it === 'object' ? 'complex' : 'simple';
-const getStatus = (f, s) => {
-  const ftype = getType(f);
-  const stype = getType(s);
-  if (ftype === stype && ftype !== 'simple') {
+const getStatus = (fElement, sElement) => {
+  if ((_.isObject(fElement) && _.isObject(sElement)) || (fElement === sElement)) {
     return 'unchanged';
   }
-  if (s === undefined) {
+  if (sElement === undefined) {
     return 'removed';
   }
-  if (f === undefined) {
+  if (fElement === undefined) {
     return 'added';
-  }
-  if (ftype === 'simple' && f === s) {
-    return 'unchanged';
   }
 
   return 'changed';
 };
 
-const gen = (f, s) => {
-  const ftype = getType(f);
-  const stype = getType(s);
-  const status = getStatus(f, s);
+const gen = (fElement, sElement) => {
+  const status = getStatus(fElement, sElement);
 
   const genChildren = (ft, sd) => {
     const keys = _.union(Object.keys(ft), Object.keys(sd));
@@ -32,16 +24,18 @@ const gen = (f, s) => {
     return keys.map(key => ({ ...gen(ft[key], sd[key]), key }));
   };
 
-
   switch (status) {
     case 'changed':
-      return { status, oldValue: f, newValue: s };
+      return { status, oldValue: fElement, newValue: sElement };
     case 'added':
-      return stype === 'simple' ? { status, newValue: s } : { status, children: genChildren(s, s) };
+      return _.isObject(sElement) ? { status, children: genChildren(sElement, sElement) } :
+                                    { status, newValue: sElement };
     case 'removed':
-      return stype === 'simple' ? { status, oldValue: f } : { status, children: genChildren(f, f) };
+      return _.isObject(sElement) ? { status, children: genChildren(fElement, fElement) } :
+                                    { status, oldValue: fElement };
     case 'unchanged':
-      return ftype === 'simple' ? { status, oldValue: f } : { status, children: genChildren(f, s) };
+      return _.isObject(fElement) ? { status, children: genChildren(fElement, sElement) } :
+                                    { status, oldValue: fElement };
     default: return 'neverappearing type appeared';
   }
 };
@@ -51,7 +45,7 @@ const diffToText = (t) => {
   const newValue = t.newValue;
   const oldValue = t.oldValue;
   const key = t.key;
-  if (t.children && t.children.length > 0) {
+  if (t.children) {
     return `{\n${t.children.map(node => diffToText(node)).reduce((acc, el) => `${acc}${el}`)}}`;
   }
   switch (t.status) {
